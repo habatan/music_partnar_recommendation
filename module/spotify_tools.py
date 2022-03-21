@@ -47,4 +47,4 @@ def get_related_artists_dict(aritist_id:str)->json:
 
 if __name__ == "__main__":
     data = get_related_artists_dict(artist_id)
-    display(data)
+    print(data)

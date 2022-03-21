@@ -1,3 +1,6 @@
 *.env
 *checkpoint*
 _info
+Scripts
+Lib
+pyvenv.cfg
