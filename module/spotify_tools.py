@@ -1,5 +1,4 @@
 # Spotify
-from matplotlib import artist
 import requests
 import dotenv
 import os
