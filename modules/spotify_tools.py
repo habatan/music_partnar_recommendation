@@ -44,7 +44,7 @@ def get_related_artists_dict(artist_id:str)->json:
             artist_name = data['name']
             artist_dict[artist_id] = artist_name
     except:
-        artist_name = {}
+        artist_dict = {}
 
     return artist_dict
 
