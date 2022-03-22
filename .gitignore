@@ -6,5 +6,5 @@ Lib
 pyvenv.cfg
 .pytest_chache
 modules/__pycache__
-test/__pycache__
-test/.pytest_chache
+tests/__pycache__
+tests/.pytest_chache
