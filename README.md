@@ -20,12 +20,12 @@ club_activity_appのAPI機能
 
 ### モジュール・メソッド一覧
 
-#### spotify_tool.py
+#### spotify_tools.py
 
 | method | argument | describe |
 | ------- | :------- | -------
 | get_access_token | client_id : str, secret_key : str | アクセストークン取得 |
-| get_related_artist | artist_id : str | 類似性の高いアーティスト取得 |
+| get_related_artists | artist_id : str | 類似性の高いアーティスト取得 |
 
 #### db_manager.py
 
