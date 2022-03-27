@@ -1,6 +1,11 @@
 *.env
 *checkpoint*
 _info
+Include
+.pytest_cache
 Scripts
 Lib
 pyvenv.cfg
+moduels
+overview
+
