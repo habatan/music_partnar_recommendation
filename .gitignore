@@ -1,5 +1,6 @@
 *.env
 *checkpoint*
+data_research
 _info
 Include
 .pytest_cache
