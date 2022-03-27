@@ -1,5 +1,4 @@
 # Flask application(API)
-from crypt import methods
 from flask import Flask, request
 import modules.spotify_tools as spotify
 import modules.db_manager as db

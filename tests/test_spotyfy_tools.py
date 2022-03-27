@@ -1,5 +1,4 @@
 # test spotifyAPI handling module
-from msilib.schema import Error
 import pytest
 from modules.spotify_tools import *
 
