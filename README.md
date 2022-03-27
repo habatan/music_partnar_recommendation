@@ -25,7 +25,7 @@ club_activity_appのAPI機能
 | method | argument | describe |
 | ------- | :------- | -------
 | get_access_token | client_id : str, secret_key : str | アクセストークン取得 |
-| get_related_artists | artist_id : str | 類似性の高いアーティスト取得 |
+| get_related_artists | access_token : str, artist_id : str | 類似性の高いアーティスト取得 |
 
 #### db_manager.py
 

@@ -1,7 +1,7 @@
 # test spotifyAPI handling module
 import pytest
-import modules.spotify_tools as spotify
+from modules.spotify_tools import *
 
 def test_spotify():
     # os.environでエラー出てる
-    assert spotify.get_related_artists_dict("test") == {}
+    assert get_related_artists("test") == {}
