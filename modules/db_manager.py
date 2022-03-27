@@ -19,3 +19,10 @@ def set_similar_user(user_id, user_list):
 def get_user_record(user_id):
     return
 
+def _create_table(table_name):
+    return 
+
+
+
+
+
