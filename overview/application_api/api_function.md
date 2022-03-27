@@ -1,12 +1,8 @@
 # 類似ユーザ探索API
 
-## 概要
+## API本体機能
 
-club_activity_appのAPI機能
-
-### API本体機能
-
-#### app.py
+### app.py
 
 | method | argument | describe |
 | ------- | :------- | :------ |
@@ -18,16 +14,16 @@ club_activity_appのAPI機能
 
 ***
 
-### モジュール・メソッド一覧
+## モジュール・メソッド一覧
 
-#### spotify_tool.py
+### spotify_tool.py
 
 | method | argument | describe |
 | ------- | :------- | -------
 | get_access_token | client_id : str, secret_key : str | アクセストークン取得 |
 | get_related_artist | artist_id : str | 類似性の高いアーティスト取得 |
 
-#### db_manager.py
+### db_manager.py
 
 | method | argument | describe |
 | ------- | :------- | :------ |
@@ -40,7 +36,7 @@ club_activity_appのAPI機能
 
 ***
 
-### APIエンドポイント
+## APIエンドポイント
 
 | methods | endpoint | data |
 | ------- | :------- | :--- |
