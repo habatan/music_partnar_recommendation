@@ -6,6 +6,7 @@ Include
 Scripts
 Lib
 pyvenv.cfg
-moduels
+modules/__pycache__
+tests/__pycache__
+tests/.pytest_chache
 overview
-
