@@ -15,6 +15,8 @@ club_activity_appのAPI機能
 | get_user_data | user_id : str, artist_list : list | fav_dbに置けるuser情報を取得 |
 | regist_user_data | user_id : str | fav_dbにuserレコードを作成 |
 | delete_user_data | user_id : str | fav_dbからuserレコードを削除 |
+| user_db_regist | user_id : str | user_dbにuser_idを登録 |
+| user_db_check | user_id : str | user_dbからuser_idがあるか確認 |
 
 ***
 
@@ -37,6 +39,15 @@ club_activity_appのAPI機能
 | set_artist_data | user_id : str, artist_list : list | fav_dbにuserと音楽性が似ているアーティスト情報を格納 |
 | set_similar_user | user_id : str, users_list : list | fav_dbにuserに似たuser情報を格納 |
 | get_user_record | user_id : str | fav_dbからuserのレコードを取得 |
+
+#### user_db.py
+
+| method | argument | describe |
+| ------- | :------ | :------ |
+| register_user | user_id : str, display_name : str | line_idをuser_dbに登録 |
+| delete_user | user_id : str | line_idをuser_dbから削除 |
+| get_user_id | userid : str | user_idが存在するか確認 |
+| get_user_display_name | user_id :str | 表示名を取得 |
 
 ***
 
