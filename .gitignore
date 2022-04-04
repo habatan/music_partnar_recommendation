@@ -1,11 +1,14 @@
 *.env
 *checkpoint*
 _info
+Include
+.pytest_cache
 Scripts
 Lib
 pyvenv.cfg
-.pytest_chache
 modules/__pycache__
 tests/__pycache__
 tests/.pytest_chache
 overview/
+data_research
+
