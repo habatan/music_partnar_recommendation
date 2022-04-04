@@ -53,15 +53,6 @@
 | delete_users_data | target_user_id :str | target_userのレコードを削除 |
 | get_sim_user_all | user_id : str | databaseからtarget_userの全sim_userレコードを取得 |
 
-#### user_db.py
-
-| method | argument | describe |
-| ------- | :------ | :------ |
-| register_user | user_id : str, display_name : str | line_idをuser_dbに登録 |
-| delete_user | user_id : str | line_idをuser_dbから削除 |
-| get_user_id | userid : str | user_idが存在するか確認 |
-| get_user_display_name | user_id :str | 表示名を取得 |
-
 ***
 
 ## APIエンドポイント
