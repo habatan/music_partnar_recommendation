@@ -10,4 +10,6 @@ pyvenv.cfg
 modules/__pycache__
 tests/__pycache__
 tests/.pytest_chache
-overview
+overview/
+data_research
+

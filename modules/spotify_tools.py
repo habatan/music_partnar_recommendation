@@ -13,10 +13,11 @@ def get_access_token(CLIENT_ID:str,CLIENT_SECRET:str)->str:
     # `auth=(CLIENT_ID, SECRET)` basically wraps an 'Authorization'
     # header with value:
     # b'Basic ' + b64encode((CLIENT_ID + ':' + SECRET).encode())
+    
     res = requests.post(TOKEN_URL, auth=(CLIENT_ID, CLIENT_SECRET), data=payload)
     res_data = res.json()
-
     access_token = res_data.get('access_token')
+    
     return access_token
 
 def get_related_artists(access_token, artist_id:str)->json:
@@ -34,7 +35,7 @@ def get_related_artists(access_token, artist_id:str)->json:
         for data in artist_info:
             artist_id = data['id']
             artist_name = data['name']
-            artist_dict[artist_id] = artist_name
+            artists[artist_id] = artist_name
     except:
         artists = {}
 
