@@ -18,11 +18,7 @@
 
 ## モジュール・メソッド一覧
 
-<<<<<<< HEAD
-#### spotify_tools.py
-=======
 ### spotify_tool.py
->>>>>>> branch01
 
 | method | argument | describe |
 | ------- | :------- | -------
