@@ -1,6 +1,6 @@
 *.env
 *checkpoint*
-data_research
+*data_research*
 _info
 Include
 .pytest_cache
@@ -10,6 +10,4 @@ pyvenv.cfg
 modules/__pycache__
 tests/__pycache__
 tests/.pytest_chache
-overview/
-data_research
 
