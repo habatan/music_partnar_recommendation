@@ -78,9 +78,9 @@ class UserList:
                 user.done = False
         db.session.commit()
     
-class FabArtistList:
+class FavArtistList:
     def add(self, user_id, artist_id, main_flag):
-        fav_artist = FabArtistList(user_id=user_id, fav_artist=artist_id, main_flag=main_flag, done=False)
+        fav_artist = FavArtist(user_id=user_id, fav_artist=artist_id, main_flag=main_flag, done=False)
         db.session.add(fav_artist)
         db.session.commit()
     
