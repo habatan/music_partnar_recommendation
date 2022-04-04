@@ -52,17 +52,21 @@ class SimUser(db.Model):
 # データを更新するマーカー(done)いるかな...?
 
 class UserList:
-    def add(self, display_name, mail_address, pass_word):
+    def add_user(self, display_name, mail_address, pass_word):
         user = User(user_name=display_name, mail_address=mail_address, pass_word=pass_word, done=False)
         db.session.add(user)
         db.session.commit(user)
     
-    def delete(self, display_name):
+    def delete_user(self, display_name):
         user = User.query.filter_by(user_name=display_name).first()
         db.session.delete(user)
         db.session.commit()
     
-    def get_all(self):
+    def get_user_all(self, user_id):
+        users = User.query.filter_by(user_id=user_id).all()
+        return users
+    
+    def _get_all(self):
         users = User.query.all()
         return users
 
@@ -71,7 +75,7 @@ class UserList:
         db.session.commit()
     
     def update_done(self, users):
-        for user in self.get_all():
+        for user in self._get_all():
             if user.user_id in users:
                 user.done = True
             else:
@@ -79,7 +83,7 @@ class UserList:
         db.session.commit()
     
 class FavArtistList:
-    def add(self, user_id, artist_id, main_flag):
+    def add_user_fav_artist(self, user_id, artist_id, main_flag):
         fav_artist = FavArtist(user_id=user_id, fav_artist=artist_id, main_flag=main_flag, done=False)
         db.session.add(fav_artist)
         db.session.commit()
@@ -95,8 +99,12 @@ class FavArtistList:
     def get_all_sub_fav_aritist(self, user_id):
         sub_artists = FavArtist.query.filter_by(db.and_(user_id=user_id, main=False)).all()
         return sub_artists
+
+    def get_user_fav_all(self, user_id):
+        artists = FavArtist.query.filter_by(user_id=user_id).all()
+        return  artists
     
-    def get_all(self):
+    def _get_all(self):
         artists = FavArtist.query.all()
         return  artists
     
@@ -105,7 +113,7 @@ class FavArtistList:
         db.session.commit()
     
     def update_done(self, table_ids):
-        for artist in self.get_all():
+        for artist in self._get_all():
             if artist.table_id in table_ids:
                 artist.done = True
             else:
@@ -113,7 +121,7 @@ class FavArtistList:
         db.session.commit()
 
 class SimUserList:
-    def add(self, target_user, sim_user):
+    def add_sim_user(self, target_user, sim_user):
         sim_user = SimUser(target_user_id = target_user, sim_user=sim_user)
         db.session.add(sim_user)
         db.session.commit()
@@ -121,8 +129,12 @@ class SimUserList:
     def delete_users_data(self, target_user):
         SimUser.query.filter_by(user_id=target_user).delete()
         db.session.commit()
-    
-    def get_all(self):
+
+    def get_sim_user_all(self, user_id):
+        artists = SimUser.query.filter_by(user_id=user_id).all()
+        return  artists
+
+    def _get_all(self):
         sim_users = SimUser.query.all()
         return sim_users
 
@@ -131,7 +143,7 @@ class SimUserList:
         db.session.commit()
     
     def update_done(self, table_ids):
-        for sim_user in self.get_all():
+        for sim_user in self._get_all():
             if sim_user.table_id in table_ids:
                 sim_user.done = True
             else:
