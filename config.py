@@ -1,11 +1,14 @@
 
 import os
 
+class BaseConfig:
+    DEBUG = False
+    TESTING = False
 
 class DevelopmentConfig:
-
-    # Flask
     DEBUG = True
+    TESTING= False
 
-
-Config = DevelopmentConfig
+class TestingConfig:
+    DEBUG = False
+    TESTING = True
