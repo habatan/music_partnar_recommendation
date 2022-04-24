@@ -1,5 +1,4 @@
 # test spotifyAPI handling module
-from webbrowser import get
 import pytest
 from modules.spotify_tools import *
 

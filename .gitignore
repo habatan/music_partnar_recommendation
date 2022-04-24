@@ -11,4 +11,5 @@ modules/__pycache__
 tests/__pycache__
 tests/.pytest_chache
 config.py
+report.txt
 

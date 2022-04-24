@@ -53,15 +53,17 @@ def artists_set(main_artists, related_artists):
 # artists_set構造を用いた関数
 def calculate_similaly(user_fav_artists_set, target_user_artists_set):
     # 重み的な何か
-    C1 = 0.05
-    C2 = 0.05
-    main_fav_diff = abs(len(user_fav_artists_set["main"]) - len(target_user_artists_set["main"]))
-    related_fav_diff = abs(len(user_fav_artists_set["related"]) - len(target_user_artists_set["related"]))
-    point = 0
-    point += len(user_fav_artists_set["main"] & target_user_artists_set["main"]) - C1*(main_fav_diff)
-    point += len(user_fav_artists_set["related"] & target_user_artists_set["related"]) - C2 * (related_fav_diff)
+    # C1 = 0.05
+    # C2 = 0.05
+    # main_fav_diff = abs(len(user_fav_artists_set["main"]) - len(target_user_artists_set["main"]))
+    # related_fav_diff = abs(len(user_fav_artists_set["related"]) - len(target_user_artists_set["related"]))
+    # point = 0
+    # point += len(user_fav_artists_set["main"] & target_user_artists_set["main"]) - C1*(main_fav_diff)
+    # point += len(user_fav_artists_set["related"] & target_user_artists_set["related"]) - C2 * (related_fav_diff)
+    # return point
 
-    return point
+    # BM25指数を導入
+    
 
 
 
