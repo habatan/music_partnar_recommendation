@@ -1,20 +1,19 @@
 # fav_artist_database
-from operator import index
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-# resolve flask shell bellow
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy()
 
 # 初期化関数
 def init_db(app):
-    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///..\\..\\data\\user_database.db"
-    # autoincrement
-    app.config['SQLALCHEMY_ECHO'] = True
+    # __name__=="__main__"
+    # app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///..\\..\\data\\user_database.db"
+    # pytest
+    # app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///data\\user_database.db"
     db = SQLAlchemy(app)
     db.init_app(app)
+    app.app_context().push()
 
 class User(db.Model):
     """
@@ -55,18 +54,17 @@ class SimUser(db.Model):
     done = db.Column(db.Boolean, nullable=False)
 
 class UserList:
-    def add_user(self,user_token, display_name, mail_address, pass_word):
+    def add_user(self, user_token, display_name, mail_address, pass_word):
         user = User(user_token=user_token, user_name=display_name, mail_address=mail_address, pass_word=pass_word, done=False)
         db.session.add(user)
         db.session.commit()
    
     def delete_user(self, user_token):
-        user = User.query.filter_by(user_name=user_token).first()
-        db.session.delete(user)
+        User.query.filter_by(user_token=user_token).delete()
         db.session.commit()
     
-    def get_user_all(self, user_token):
-        users = User.query.filter_by(user_token=user_token).all()
+    def get_user_info(self, user_token):
+        users = User.query.filter_by(user_token=user_token).first()
         return users
     
     def _get_all(self):
@@ -125,16 +123,16 @@ class FavArtistList:
 
 class SimUserList:
     def add_sim_user(self, target_user, sim_user):
-        sim_user = SimUser(target_user_token = target_user, sim_user=sim_user)
+        sim_user = SimUser(target_user_token = target_user, sim_user=sim_user, done=False)
         db.session.add(sim_user)
         db.session.commit()
 
     def delete_users_data(self, target_user):
-        SimUser.query.filter_by(user_token=target_user).delete()
+        SimUser.query.filter_by(target_user_token=target_user).delete()
         db.session.commit()
 
     def get_sim_user_all(self, user_token):
-        artists = SimUser.query.filter_by(user_token=user_token).all()
+        artists = SimUser.query.filter_by(target_user_token=user_token).all()
         return  artists
 
     def _get_all(self):
@@ -152,6 +150,3 @@ class SimUserList:
             else:
                 sim_user.done = False
         db.session.commit()   
-
-
-

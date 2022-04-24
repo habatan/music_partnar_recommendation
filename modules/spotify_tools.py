@@ -20,6 +20,7 @@ def get_access_token(CLIENT_ID:str,CLIENT_SECRET:str)->str:
     
     return access_token
 
+
 def get_related_artists(access_token, artist_id:str)->json:
     """
     アーティストidを入力にして類似のアーティストを辞書で返します
@@ -38,5 +39,30 @@ def get_related_artists(access_token, artist_id:str)->json:
             artists[artist_id] = artist_name
     except:
         artists = {}
-
+        
     return artists
+
+# stracture
+def artists_set(main_artists, related_artists):
+    main = set(main_artists)
+    related = set(related_artists)
+    return {
+        "main":main,"related":related
+        }
+
+# artists_set構造を用いた関数
+def calculate_similaly(user_fav_artists_set, target_user_artists_set):
+    # 重み的な何か
+    C1 = 0.05
+    C2 = 0.05
+    main_fav_diff = abs(len(user_fav_artists_set["main"]) - len(target_user_artists_set["main"]))
+    related_fav_diff = abs(len(user_fav_artists_set["related"]) - len(target_user_artists_set["related"]))
+    point = 0
+    point += len(user_fav_artists_set["main"] & target_user_artists_set["main"]) - C1*(main_fav_diff)
+    point += len(user_fav_artists_set["related"] & target_user_artists_set["related"]) - C2 * (related_fav_diff)
+
+    return point
+
+
+
+

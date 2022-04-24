@@ -1,0 +1,19 @@
+============================= test session starts =============================
+platform win32 -- Python 3.8.10, pytest-7.1.1, pluggy-1.0.0
+rootdir: C:\Users\Ryotaro\Documents\club_actibity_app\club_activity_app
+collected 9 items
+
+tests\test_models.py ......                                              [ 66%]
+tests\test_spotyfy_tools.py ...                                          [100%]
+
+============================== warnings summary ===============================
+tests/test_spotyfy_tools.py::test_get_access_token
+  c:\users\ryotaro\documents\club_actibity_app\club_activity_app\lib\site-packages\requests\auth.py:39: DeprecationWarning: Non-string usernames will no longer be supported in Requests 3.0.0. Please convert the object you've passed in (1111) to a string or bytes object in the near future to avoid problems.
+    warnings.warn(
+
+tests/test_spotyfy_tools.py::test_get_access_token
+  c:\users\ryotaro\documents\club_actibity_app\club_activity_app\lib\site-packages\requests\auth.py:49: DeprecationWarning: Non-string passwords will no longer be supported in Requests 3.0.0. Please convert the object you've passed in (<class 'int'>) to a string or bytes object in the near future to avoid problems.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================== 9 passed, 2 warnings in 2.39s ========================
