@@ -59,6 +59,6 @@
 
 | methods | endpoint | data | return |
 | ------- | :------- | ---- | ---- |
-| POST | /club_app_api/v1/get_user_data | user_id | similar_users, display_name |
-| POST | /club_app_api/v1/regist_user_data | user_id, favarite_aritsts, display_name | bool(True, False) |
+| POST | /club_app_api/v1/get_user_data | user_id | similar_users, display_name, favorite_artists |
+| POST | /club_app_api/v1/regist_user_data | user_id, favorite_aritsts, display_name | bool(True, False) |
 | POST | /club_app_api/v1/delete_user_data | user_id | bool(True, Flase)
