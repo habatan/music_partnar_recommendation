@@ -1,6 +1,9 @@
 # Spotify tools
 import requests
 import json
+import math
+import numpy as np
+import gensim
 
 def get_access_token(CLIENT_ID:str,CLIENT_SECRET:str)->str:
     TOKEN_URL = 'https://accounts.spotify.com/api/token'
@@ -43,28 +46,86 @@ def get_related_artists(access_token, artist_id:str)->json:
     return artists
 
 # stracture
-def artists_set(main_artists, related_artists):
-    main = set(main_artists)
-    related = set(related_artists)
-    return {
-        "main":main,"related":related
-        }
+# def artists_set(main_artists, related_artists):
+#     main = set(main_artists)
+#     related = set(related_artists)
+#     return {
+#         "main":main,"related":related
+#         }
 
 # artists_set構造を用いた関数
-def calculate_similaly(user_fav_artists_set, target_user_artists_set):
-    # 重み的な何か
-    # C1 = 0.05
-    # C2 = 0.05
-    # main_fav_diff = abs(len(user_fav_artists_set["main"]) - len(target_user_artists_set["main"]))
-    # related_fav_diff = abs(len(user_fav_artists_set["related"]) - len(target_user_artists_set["related"]))
-    # point = 0
-    # point += len(user_fav_artists_set["main"] & target_user_artists_set["main"]) - C1*(main_fav_diff)
-    # point += len(user_fav_artists_set["related"] & target_user_artists_set["related"]) - C2 * (related_fav_diff)
-    # return point
+# def calculate_similaly(user_fav_artists_set, target_user_artists_set):
+#     # 重み的な何か
+#     C1 = 0.05
+#     C2 = 0.05
+#     main_fav_diff = abs(len(user_fav_artists_set["main"]) - len(target_user_artists_set["main"]))
+#     related_fav_diff = abs(len(user_fav_artists_set["related"]) - len(target_user_artists_set["related"]))
+#     point = 0
+#     point += len(user_fav_artists_set["main"] & target_user_artists_set["main"]) - C1*(main_fav_diff)
+#     point += len(user_fav_artists_set["related"] & target_user_artists_set["related"]) - C2 * (related_fav_diff)
+#     return point
 
-    # BM25指数を導入
+def calc_BM25(all_user_num, user_fav_main_artists, user_fav_sub_artists, artist_to_user,  aval, k1 = 1.2, b = 0.75):
+    """
+    BM25スコアを計算する
+    all_user_num; 総user数
+    user_fav_main_artists: userが選択したartists
+    user_fav_sub_artists: userが選択したartistの関連artists
+    artist_to_user : artistを選択しているuserのdictを返す
+    aval: ユーザ一人当たり平均選択アーティスト数
+    k1: パラメータ（初期値1.2）
+    b: パラメータ（初期値0.75）
+    """
+    assert type(user_fav_main_artists) == list and type(user_fav_sub_artists) == list, "user_fav_artistのデータ形式をlistにしてください"
+    user_selected = user_fav_sub_artists + user_fav_main_artists
+    dl = len(user_selected)
+    score = 0.0
+    # user選択アーティストに含むアーティストだけ考えてスコアを計算
+    for artist_id in user_fav_main_artists:
+        # artistにおけるuserの選択回数()
+        freq = 1
+        # userの選択にartistが含まれているか確認(ここいらないかも)
+        if len([artist for artist in user_selected if artist == artist_id]) == 0:
+            continue
+        # あるartistを選択しているuserの数(ここ改善の余地あり)
+        selected_user = len(artist_to_user[artist_id])
+        assert selected_user != 0, f"artist_idを見直してください {artist_id}"
+        # あるuserがartistを選択している回数(ここは1回)
+        num_selected = [artist for artist in user_selected if artist == artist_id]
+        tf_user = len(num_selected)
+        # 全ユーザからあるアーティストを選んでいるユーザの差(対数)
+        idf_artist = math.log2(all_user_num / selected_user)
+        right =  (tf_user * (k1 + 1)) / (tf_user + k1 * (1 - b + b * dl / aval))
+        okapi = idf_artist * right * freq
+        score += okapi
+    return score
+
+
+def get_users_by_aritst_id(db, artist_ids:list):
+    """
+    db : module.module
+    artistを選択しているuserを返します→ dict{"artist" : [users,･･･]}
+    """
+    assert type(artist_ids) == list, "入力形式をlistにしてください"
+    artist_to_users = {}
+    for artist_id in artist_ids:
+        users = db.FavArtistList.get_users_by_artist_id(artist_id)
+        artist_to_users[artist_id] = users
+    return artist_to_users
+
+def get_avarage_of_selected_artists(db):
+    """
+    db : module.module
+    一人あたり選択アーティストの平均を返す(numpyで高速)
+    """
+    users = db.UserList._get_all()
+    selected_artist = np.array([])
+    for user in users:
+        token = user.user_token
+        artists = db.FavArtistList.get_all_main_fav_artist(token)
+        selected_artist = np.append(selected_artist,len(artists))
+    avarage = np.average(selected_artist)
+    return avarage
     
-
-
-
-
+    
+    

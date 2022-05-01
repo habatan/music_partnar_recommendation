@@ -22,7 +22,6 @@ def create_app(config="base"):
 
     # configファイル : https://qiita.com/nanakenashi/items/e272ff1aafb3889230bc
     if config == "test":
-        print("読み込まれてまっせ")
         app.config.from_object("config.TestingConfig")
     elif config == "development":
         app.config.from_object("config.DevelopmentConfig")

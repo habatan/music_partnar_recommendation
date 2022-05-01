@@ -10,7 +10,7 @@ def init_db(app):
     # __name__=="__main__"
     # app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///..\\..\\data\\user_database.db"
     # pytest
-    # app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///data\\user_database.db"
+    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///data\\user_database.db"
     db = SQLAlchemy(app)
     db.init_app(app)
     app.app_context().push()
@@ -105,6 +105,10 @@ class FavArtistList:
         artists = FavArtist.query.filter_by(user_token=user_token).all()
         return  artists
     
+    def get_users_by_artist_id(self, artist_id):
+        users = set(FavArtist.query.filter_by(fav_artist_id=artist_id).all())
+        return users
+        
     def _get_all(self):
         artists = FavArtist.query.all()
         return  artists

@@ -70,17 +70,22 @@ def test_FavArtistList():
     fav_artist_list.add_user_fav_artist(user_token="#thisistoken", artist_id="6U3ybJ9UHNKEdsH7ktGBZ2", main_flag=True)
     fav_artist_list.add_user_fav_artist(user_token="#thisistoken", artist_id="6U3ybJ9UHNKEdsH7ktGBZ3", main_flag=False)
     fav_artist_list.add_user_fav_artist(user_token="#thisistoken", artist_id="6U3ybJ9UHNKEdsH7ktGBZ4", main_flag=True)
+    fav_artist_list.add_user_fav_artist(user_token="#thisistoken2", artist_id="6U3ybJ9UHNKEdsH7ktGBZ7", main_flag=True)
+
     main_fav_list = fav_artist_list.get_all_main_fav_artist(user_token="#thisistoken")
     sub_fav_list = fav_artist_list.get_all_sub_fav_aritist(user_token="#thisistoken")
+    users = fav_artist_list.get_users_by_artist_id("6U3ybJ9UHNKEdsH7ktGBZ7")
     assert main_fav_list, "main_fav_listを正しく抽出をできていません"
     assert type(main_fav_list) == list, f"main_fav_listの形式が{type(main_fav_list)}になっています"
     assert len(main_fav_list) == 6, "mainでないアーティストも抽出されています"
     assert sub_fav_list, "sub_fav_listを正しく抽出をできていません"
     assert type(sub_fav_list) == list, f"sub_fav_listの形式が{type(sub_fav_list)}になっています"
     assert len(sub_fav_list) == 1, "subでないアーティストも抽出されています"
+    assert len(users) == 2, f"artist_idから適切なユーザを抽出できていません {users}"
     
     # clear
     fav_artist_list.delete_users_fav_artists(user_token="#thisistoken")
+    fav_artist_list.delete_users_fav_artists(user_token="#thisistoken2")
     db.delete(FavArtist)
     db.session.commit()
     db.session.close()
