@@ -76,6 +76,7 @@ def calc_BM25(all_user_num, user_fav_main_artists, user_fav_sub_artists, artist_
     k1: パラメータ（初期値1.2）
     b: パラメータ（初期値0.75）
     """
+    # [課題] ユーザが選択したユーザと関連ユーザが混ざっている
     assert type(user_fav_main_artists) == list and type(user_fav_sub_artists) == list, "user_fav_artistのデータ形式をlistにしてください"
     user_selected = user_fav_sub_artists + user_fav_main_artists
     dl = len(user_selected)
@@ -99,33 +100,6 @@ def calc_BM25(all_user_num, user_fav_main_artists, user_fav_sub_artists, artist_
         okapi = idf_artist * right * freq
         score += okapi
     return score
-
-
-def get_users_by_aritst_id(db, artist_ids:list):
-    """
-    db : module.module
-    artistを選択しているuserを返します→ dict{"artist" : [users,･･･]}
-    """
-    assert type(artist_ids) == list, "入力形式をlistにしてください"
-    artist_to_users = {}
-    for artist_id in artist_ids:
-        users = db.FavArtistList.get_users_by_artist_id(artist_id)
-        artist_to_users[artist_id] = users
-    return artist_to_users
-
-def get_avarage_of_selected_artists(db):
-    """
-    db : module.module
-    一人あたり選択アーティストの平均を返す(numpyで高速)
-    """
-    users = db.UserList._get_all()
-    selected_artist = np.array([])
-    for user in users:
-        token = user.user_token
-        artists = db.FavArtistList.get_all_main_fav_artist(token)
-        selected_artist = np.append(selected_artist,len(artists))
-    avarage = np.average(selected_artist)
-    return avarage
     
     
     

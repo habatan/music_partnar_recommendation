@@ -40,5 +40,3 @@ def test_calc_BM25():
 
 
 
-
-

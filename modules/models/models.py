@@ -1,6 +1,7 @@
 # fav_artist_database
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+import numpy as np
 
 app = Flask(__name__)
 db = SQLAlchemy()
@@ -154,3 +155,29 @@ class SimUserList:
             else:
                 sim_user.done = False
         db.session.commit()   
+
+# spotify関連
+def get_users_by_aritst_id(artist_ids:list):
+    """
+    artistを選択しているuserを返す : {"artist" : [users,･･･]} → dict
+    """
+    assert type(artist_ids) == list, "入力形式をlistにしてください"
+    artist_to_users = {}
+    for artist_id in artist_ids:
+        users = FavArtistList.get_users_by_artist_id(artist_id)
+        artist_to_users[artist_id] = users
+    return artist_to_users
+
+def get_avarage_of_selected_artists():
+    """
+    一人あたり選択アーティストの平均を返す : avarage → int
+    """
+    users = UserList._get_all()
+    selected_artist = np.array([])
+    for user in users:
+        token = user.user_token
+        artists = FavArtistList.get_all_main_fav_artist(token)
+        selected_artist = np.append(selected_artist,len(artists))
+    avarage = np.average(selected_artist)
+    return avarage
+    
