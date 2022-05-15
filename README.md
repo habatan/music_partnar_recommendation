@@ -60,6 +60,7 @@
 | methods | endpoint | data | return |
 | ------- | :------- | ---- | ---- |
 | GET | /club_app_api/v1/get_user_data/{user_id} | | similar_users, display_name, favorite_artists |
+| POST | /club_app_api/v1/login_user | mail_add, password | user_token |
 | POST | /club_app_api/v1/regist_user_data | user_id, display_name, mail_add, password | bool(True, False) |
 | POST | /club_app_api/v1/{user_id}/regist_user_favartist | user_token, favorite_artists | bool(True, False) |
 | POST | /club_app_api/v1/{user_id}/delete_user_data | user_token | bool(True, Flase)
