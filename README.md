@@ -39,8 +39,8 @@
 
 | method | argument | describe |
 | ------- | :------- | :------ |
-| add | user_id : str, fav_artist : str, main_flag : str | userのfav_artist_idをdatabaseに追加 |
-| delete_user_fav_artist | user_id : str | databaseからuserのfav_artist_idを削除 |
+| add | user_id : str, user_token : str, fav_artist : str, main_flag : str | userのfav_artist_idをdatabaseに追加 |
+| delete_user_fav_artist | user_id : str, user_token : str | databaseからuserのfav_artist_idを削除 |
 | get_all_main_fav_artist | user_id : str | userが選択したfav_artist_idを取得 |
 | get_all_sub_fav_aritist | user_id : str, users_list : list | userが選択したfav_artist_idに関連するartist_idを取得 |
 | get_user_fav_all | user_id : str | datebaseにおけるuserのすべてのデータを取得 |
@@ -59,6 +59,7 @@
 
 | methods | endpoint | data | return |
 | ------- | :------- | ---- | ---- |
-| POST | /club_app_api/v1/get_user_data | user_id | similar_users, display_name, favorite_artists |
-| POST | /club_app_api/v1/regist_user_data | user_id, favorite_aritsts, display_name | bool(True, False) |
-| POST | /club_app_api/v1/delete_user_data | user_id | bool(True, Flase)
+| GET | /club_app_api/v1/get_user_data/{user_id} | similar_users, display_name, favorite_artists |
+| POST | /club_app_api/v1/regist_user_data | user_id, favorite_artsts, display_name | bool(True, False) |
+| POST | /club_app_api/v1/{user_id}/regist_user_favartist | user_token, favorite_artists | bool(True, False) |
+| POST | /club_app_api/v1/{user_id}/delete_user_data | user_token | bool(True, Flase)
