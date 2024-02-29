@@ -3,7 +3,6 @@ import requests
 import json
 import math
 import numpy as np
-import gensim
 
 def get_access_token(CLIENT_ID:str,CLIENT_SECRET:str)->str:
     TOKEN_URL = 'https://accounts.spotify.com/api/token'
