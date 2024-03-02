@@ -7,6 +7,8 @@ class BaseConfig(object):
     SQLALCHEMY_TRACK_MODIFICATIONS=False
     # autoincrement
     SQLALCHEMY_ECHO=True
+    # handle japanise
+    JSON_AS_ASCII=False
 
 class DevelopmentConfig(BaseConfig):
     DEBUG = True
@@ -15,6 +17,8 @@ class DevelopmentConfig(BaseConfig):
     SQLALCHEMY_TRACK_MODIFICATIONS=False
     # autoincrement
     SQLALCHEMY_ECHO=True
+    # handle japanise
+    JSON_AS_ASCII=False
 
 class TestingConfig(BaseConfig):
     DEBUG = True
@@ -23,3 +27,5 @@ class TestingConfig(BaseConfig):
     SQLALCHEMY_TRACK_MODIFICATIONS=False
     # autoincrement
     SQLALCHEMY_ECHO=True
+    # handle japanise
+    JSON_AS_ASCII=False
