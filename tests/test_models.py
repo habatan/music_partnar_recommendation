@@ -1,10 +1,9 @@
 # test aql hanling module
 import pytest
-from app import create_app
-from  modules.models.models import *
+from main import create_app
+from models import *
 
 app = create_app(config="test")
-init_db(app)
 
 def test_User(): 
     db.create_all()
