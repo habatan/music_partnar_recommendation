@@ -1,4 +1,4 @@
-# fav_artist_database
+# Legacy Query Interface — Flask-SQLAlchemy Documentation (3.1.x) (palletsprojects.com)
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 import numpy as np
@@ -9,10 +9,10 @@ db = SQLAlchemy()
 # 初期化関数
 def init_db(app):
     # __name__=="__main__"
+    db = SQLAlchemy()
     # app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///..\\..\\data\\user_database.db"
     # pytest
     app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///data\\user_database.db"
-    db = SQLAlchemy(app)
     db.init_app(app)
     app.app_context().push()
 
@@ -25,7 +25,7 @@ class User(db.Model):
     __tablename__ = "users"
     user_token = db.Column(db.String(32), primary_key=True)
     user_name = db.Column(db.String(30), nullable=False)
-    mail_address = db.Column(db.String(50), nullable=False)
+    # mail_address = db.Column(db.String(50), nullable=False)
     pass_word = db.Column(db.String(100), nullable=False)
     done = db.Column(db.Boolean, nullable=False)
 
@@ -55,8 +55,8 @@ class SimUser(db.Model):
     done = db.Column(db.Boolean, nullable=False)
 
 class UserList:
-    def add_user(self, user_token, display_name, mail_address, pass_word):
-        user = User(user_token=user_token, user_name=display_name, mail_address=mail_address, pass_word=pass_word, done=False)
+    def add_user(self, user_token, display_name, pass_word):
+        user = User(user_token=user_token, user_name=display_name, pass_word=pass_word, done=False)
         db.session.add(user)
         db.session.commit()
    
@@ -65,7 +65,8 @@ class UserList:
         db.session.commit()
     
     def get_user_info(self, user_token):
-        users = User.query.filter_by(user_token=user_token).first()
+        # users = db.session.execute(db.select(User).order_by(User.username)).
+        users = User.query.filter_by(user_token=user_token).first_or_404()
         return users
     
     def _get_all(self):
