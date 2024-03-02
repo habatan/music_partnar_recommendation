@@ -27,7 +27,7 @@ def create_app(config="development"):
     sim_user_list = SimUserList()
 
     @app.route("/v1/regist_user_data", methods=["POST"])
-    def regist_user_data():
+    def regist_user():
         """
         Summary:
             新規ユーザの登録.
@@ -72,13 +72,12 @@ def create_app(config="development"):
         return
     
     @app.route("/v1/delete_user_data", methods=["POST"])
-    def delete_user_data():
+    def delete_user():
         return
 
-    def make_artist_data():
-        return
+    @app.route("/v1/<user_id>/regist_user_favartist")
+    def regist_user_favartist(user_id):
 
-    def find_similar_user():
         return
 
     return app
