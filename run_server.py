@@ -1,5 +1,7 @@
 # run application
-from app import create_app
+from main import create_app
+from models import db
 
 app = create_app()
-app.run(port=8888)
+db.create_all(app)
+app.run(port=8888, debug=True)
