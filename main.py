@@ -1,5 +1,6 @@
 # Flask application(API)
 from flask import Flask, request, jsonify
+import secrets
 from models import *
 
 def create_app(config="development"):
@@ -20,7 +21,7 @@ def create_app(config="development"):
     # SQLAlchemy
     db.init_app(app)
     app.app_context().push()
-    # db.create_all()
+    
     user_list = UserList()
     user_like_artists_list = FavArtistList()
     sim_user_list = SimUserList()
@@ -47,9 +48,10 @@ def create_app(config="development"):
             regist_status = False
             return jsonify({"user_id": None, "regist_status":regist_status})
         
-        user_id = "#good"
+        # ユーザIDの作成
+        user_id = secrets.token_hex()
         
-        # 登録
+        # DB挿入
         user_list.add_user(
             user_token=user_id,
             display_name=display_name,
